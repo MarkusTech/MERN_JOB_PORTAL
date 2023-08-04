@@ -1,4 +1,5 @@
 import express from "express";
+import "express-async-errors";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -10,6 +11,7 @@ import connectDB from "./config/db.js";
 
 // ** IMPORT ROUTES *
 import authRoutes from "./routes/authRoutes.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
 
 // ** DOTENV *
 dotenv.config();
@@ -34,6 +36,9 @@ app.get("/", (req, res) => {
 
 // ** API ROUTES *
 app.use("/api/v1/auth", authRoutes);
+
+// ** VALIDATION MIDDLEWARE*
+app.use(errorMiddleware);
 
 // ** EVENT LISTENER *
 app.listen(port, () => {

@@ -1,32 +1,23 @@
 import userModel from "../models/userModel.js";
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
     // validate
     if (!name) {
-      return res
-        .status(400)
-        .send({ success: false, message: "please provide name" });
+      next("name is required");
     }
     if (!email) {
-      return res
-        .status(400)
-        .send({ success: false, message: "please provide email" });
+      next("email is required");
     }
     if (!password) {
-      return res
-        .status(400)
-        .send({ success: false, message: "please provide password" });
+      next("password is required and greater than 6 character");
     }
 
     // validate if the user is existing
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).send({
-        success: false,
-        message: "Email Already Registered Please login",
-      });
+      next("Email Already Exist Please Login");
     }
 
     // if not existed user save!
@@ -35,10 +26,7 @@ const register = async (req, res) => {
       .status(201)
       .send({ success: true, message: "User Registered Successfully", user });
   } catch (error) {
-    console.error(error);
-    res
-      .status(400)
-      .json({ message: "Error in register Controller", success: false, error });
+    next(error);
   }
 };
 

@@ -19,11 +19,21 @@ const register = async (req, res, next) => {
     next("Email Already Exist Please Login");
   }
 
-  // if not existed user save!
+  // if not existed, USER SAVE!
   const user = await userModel.create({ name, email, password });
-  res
-    .status(201)
-    .send({ success: true, message: "User Registered Successfully", user });
+  //   token
+  const token = user.createJWT();
+  res.status(201).send({
+    success: true,
+    message: "User Registered Successfully",
+    user: {
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+      location: user.location,
+    },
+    token,
+  });
 };
 
 const login = async (req, res) => {

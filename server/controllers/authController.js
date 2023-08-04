@@ -37,7 +37,29 @@ const register = async (req, res, next) => {
 };
 
 const login = async (req, res) => {
-  res.send("Login");
+  const { email, password } = req.body;
+  //   validation
+  if (!email || !password) {
+    next("Please provide all fields");
+  }
+  // find user by email
+  const user = await userModel.findOne({ email }).select("+password");
+  if (!user) {
+    next("Invalid Username or Password");
+  }
+  //compare password
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) {
+    next("Invalid Username or Password");
+  }
+  user.password = undefined;
+  const token = user.createJWT();
+  res.status(200).json({
+    success: true,
+    message: "Login Successfully",
+    user,
+    token,
+  });
 };
 
 export { register, login };

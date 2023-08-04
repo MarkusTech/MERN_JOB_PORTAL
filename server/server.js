@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
+import morgan from "morgan";
 import colors from "colors";
 
 // ** IMPORT CONNECTION *
@@ -19,6 +20,7 @@ const app = express();
 // ** MIDDLEWARES *
 app.use(express.json());
 app.use(cors());
+app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // ** DATABASE CONNECTION *

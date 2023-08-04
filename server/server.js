@@ -9,6 +9,7 @@ import colors from "colors";
 import connectDB from "./config/db.js";
 
 // ** IMPORT ROUTES *
+import authRoutes from "./routes/authRoutes.js";
 
 // ** DOTENV *
 dotenv.config();
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 });
 
 // ** API ROUTES *
+app.use("/api/v1/auth", authRoutes);
 
 // ** EVENT LISTENER *
 app.listen(port, () => {

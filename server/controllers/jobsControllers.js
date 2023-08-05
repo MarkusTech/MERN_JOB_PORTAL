@@ -1,7 +1,8 @@
 import jobsModel from "../models/jobsModel.js";
 import mongoose from "mongoose";
+import moment from "moment";
 
-//** Create job */
+//** CREATE JOBS */
 const createJobController = async (req, res, next) => {
   const { company, position } = req.body;
   if (!company || !position) {
@@ -21,7 +22,7 @@ const getAllJobsController = async (req, res, next) => {
   });
 };
 
-//** Update Jobs */
+//** UPDATE JOBS */
 const updateJobController = async (req, res, next) => {
   const { id } = req.params;
   const { company, position } = req.body;
@@ -47,6 +48,7 @@ const updateJobController = async (req, res, next) => {
   res.status(200).json({ updatejob });
 };
 
+//** DELETE JOBS */
 const deleteJobController = async (req, res, next) => {
   const { id } = req.params;
   // find job
@@ -63,9 +65,73 @@ const deleteJobController = async (req, res, next) => {
   res.status(200).json({ message: "Success, Job Deleted!" });
 };
 
+//** JOBS STATS & FILTER */
+const jobsStatsController = async (req, res, next) => {
+  const stats = await jobsModel.aggregate([
+    // search by user jobs
+    {
+      $match: {
+        createdBy: new mongoose.Types.ObjectId(req.user.userId),
+      },
+    },
+    {
+      $group: {
+        _id: "$status",
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  // default stats
+  const defaultStats = {
+    pending: stats.pending || 0,
+    reject: stats.reject || 0,
+    interview: stats.interview || 0,
+  };
+
+  // monthly yearly stats
+  let monthlyApplication = await jobsModel.aggregate([
+    {
+      $match: {
+        createdBy: new mongoose.Types.ObjectId(req.user.userId),
+      },
+    },
+    {
+      $group: {
+        _id: {
+          year: { $year: "$createdAt" },
+          month: { $month: "$createdAt" },
+        },
+        count: {
+          $sum: 1,
+        },
+      },
+    },
+  ]);
+  monthlyApplication = monthlyApplication
+    .map((item) => {
+      const {
+        _id: { year, month },
+        count,
+      } = item;
+      const date = moment()
+        .month(month - 1)
+        .year(year)
+        .format("MMM Y");
+      return { date, count };
+    })
+    .reverse();
+  res.status(200).json({
+    totalJobs: stats.length,
+    defaultStats,
+    monthlyApplication,
+  });
+};
+
 export {
   createJobController,
   getAllJobsController,
   updateJobController,
   deleteJobController,
+  jobsStatsController,
 };

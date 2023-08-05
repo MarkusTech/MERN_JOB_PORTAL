@@ -13,6 +13,8 @@ import connectDB from "./config/db.js";
 import testRoutes from "./routes/testRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
+import userRoutes from "./routes/userRoutes.js";
+import jobsRoutes from "./routes/jobsRoutes.js";
 
 // ** DOTENV *
 dotenv.config();
@@ -38,6 +40,8 @@ app.get("/", (req, res) => {
 // ** API ROUTES *
 app.use("/api/v1/test", testRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/job", jobsRoutes);
 
 // ** VALIDATION MIDDLEWARE*
 app.use(errorMiddleware);

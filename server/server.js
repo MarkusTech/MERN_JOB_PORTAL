@@ -10,6 +10,7 @@ import colors from "colors";
 import connectDB from "./config/db.js";
 
 // ** IMPORT ROUTES *
+import testRoutes from "./routes/testRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 
@@ -35,6 +36,7 @@ app.get("/", (req, res) => {
 });
 
 // ** API ROUTES *
+app.use("/api/v1/test", testRoutes);
 app.use("/api/v1/auth", authRoutes);
 
 // ** VALIDATION MIDDLEWARE*

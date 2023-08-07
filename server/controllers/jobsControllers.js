@@ -15,13 +15,17 @@ const createJobController = async (req, res, next) => {
 
 //** Get all Created jobs */
 const getAllJobsController = async (req, res, next) => {
-  const {status} = req.query
+  const { status } = req.query;
   // condition for searching filters
   const queryObject = {
-    createdBy: req.user.userId
-  }
+    createdBy: req.user.userId,
+  };
   // logic filters
-  
+  if (status && status !== "all") {
+    queryObject.status = status;
+  }
+  const queryResult = jobsModel.find(queryObject);
+  const jobs = await queryResult;
 
   // const result = await jobsModel.find({ createdBy: req.user.userId });
   res.status(200).json({

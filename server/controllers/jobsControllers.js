@@ -15,7 +15,15 @@ const createJobController = async (req, res, next) => {
 
 //** Get all Created jobs */
 const getAllJobsController = async (req, res, next) => {
-  const result = await jobsModel.find({ createdBy: req.user.userId });
+  const {status} = req.query
+  // condition for searching filters
+  const queryObject = {
+    createdBy: req.user.userId
+  }
+  // logic filters
+  
+
+  // const result = await jobsModel.find({ createdBy: req.user.userId });
   res.status(200).json({
     totalJobs: result.length,
     result,

@@ -14,7 +14,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import swaggerUi from "swagger-ui-express";
 import swaggerDoc from "swagger-jsdoc";
 // ** IMPORT CONNECTION *
-import connectDB from "./config/db.js";
+import connectDB from "./config/db.js"; 
 
 // ** IMPORT ROUTES *
 import testRoutes from "./routes/testRoutes.js";

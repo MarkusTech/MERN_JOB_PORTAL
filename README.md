@@ -9,4 +9,7 @@ MVC pattern MERN JOB PORTAL BACKEND API
 -express-rate-limit == in authentication
 
 #Documentation
--i use swagger
+-> i use swagger
+-swagger-doc
+-swagger-ui-express
+-swagger-jsdoc

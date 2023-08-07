@@ -27,6 +27,9 @@
     "mongoose": "^7.4.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
+    "swagger-doc": "^0.3.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "validator": "^13.9.0",
     "xss-clean": "^0.1.4"
   }

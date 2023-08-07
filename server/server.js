@@ -5,7 +5,10 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import colors from "colors";
-
+//** Security package */
+import helmet from "helmet";
+import xss from "xss-clean";
+import mongoSanitize from "express-mongo-sanitize";
 // ** IMPORT CONNECTION *
 import connectDB from "./config/db.js";
 
@@ -24,6 +27,9 @@ const port = process.env.PORT;
 const app = express();
 
 // ** MIDDLEWARES *
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));

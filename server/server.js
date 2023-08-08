@@ -14,7 +14,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import swaggerUi from "swagger-ui-express";
 import swaggerDoc from "swagger-jsdoc";
 // ** IMPORT CONNECTION *
-import connectDB from "./config/db.js"; 
+import connectDB from "./config/db.js";
 
 // ** IMPORT ROUTES *
 import testRoutes from "./routes/testRoutes.js";
@@ -73,7 +73,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/job", jobsRoutes);
 
-// homeroute
+//** DOCUMENTATION ROUTES */
 app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(spec));
 
 // ** VALIDATION MIDDLEWARE*

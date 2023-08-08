@@ -21,7 +21,7 @@ const register = async (req, res, next) => {
 
   // if not existed, USER SAVE!
   const user = await userModel.create({ name, email, password });
-  //   token
+  // token
   const token = user.createJWT();
   res.status(201).send({
     success: true,

@@ -13,3 +13,17 @@ MVC pattern MERN JOB PORTAL BACKEND API
 -swagger-doc
 -swagger-ui-express
 -swagger-jsdoc
+
+
+
+|------------------------------------------ GOAL -------------------------------------------------|
+|													                                                                        |
+|        -> LMS JOB PORTAL								                                                        |
+|        -> CHAT APP 										                                                          |
+|        -> ECOMMERCE									                                                            |
+|													                                                                        |
+|        -> JAVASCRIPT									                                                          |
+|        -> DATASTRUCTURE AND ALGORITHM					                                                  |
+|													                                                                        |
+|---------------------------------------- JOB READY ----------------------------------------------|
+
